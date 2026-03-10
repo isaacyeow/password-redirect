@@ -2,28 +2,39 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting...</title>
-    <script>
-        // Get the token from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        
-        if (token) {
-            // IMPORTANT: Use the correct custom scheme
-            window.location.href = `yourapp://reset-password?token=${token}`;
-        } else {
-            document.write('Invalid reset link');
+    <title>Redirecting to App...</title>
+    <script type="text/javascript">
+        // Get token from URL
+        function getToken() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            return urlParams.get('token');
         }
+
+        // Redirect to app
+        function redirectToApp() {
+            const token = getToken();
+            if (token) {
+                // Force redirect to custom scheme
+                window.location = 'yourapp://reset-password?token=' + token;
+            } else {
+                document.body.innerHTML = '<p>Invalid reset link - no token provided</p>';
+            }
+        }
+
+        // Run redirect immediately
+        redirectToApp();
     </script>
 </head>
 <body>
     <p>Redirecting to app...</p>
-    <p>If you're not redirected, <a href="#" id="fallback">click here</a></p>
-    <script>
-        const token = new URLSearchParams(window.location.search).get('token');
-        if (token) {
-            document.getElementById('fallback').href = `yourapp://reset-password?token=${token}`;
-        }
-    </script>
+    <noscript>
+        <p>JavaScript is required to redirect. Please enable JavaScript or click the link below:</p>
+        <a href="#" id="fallbackLink">Open App</a>
+        <script>
+            document.getElementById('fallbackLink').href = 'yourapp://reset-password?token=' + 
+                new URLSearchParams(window.location.search).get('token');
+        </script>
+    </noscript>
 </body>
 </html>
