@@ -1,40 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Redirecting to App...</title>
-    <script type="text/javascript">
-        // Get token from URL
-        function getToken() {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            return urlParams.get('token');
-        }
-
-        // Redirect to app
-        function redirectToApp() {
-            const token = getToken();
-            if (token) {
-                // Force redirect to custom scheme
-                window.location = 'yourapp://reset-password?token=' + token;
-            } else {
-                document.body.innerHTML = '<p>Invalid reset link - no token provided</p>';
-            }
-        }
-
-        // Run redirect immediately
-        redirectToApp();
-    </script>
+    <title>Redirect Test</title>
 </head>
 <body>
-    <p>Redirecting to app...</p>
-    <noscript>
-        <p>JavaScript is required to redirect. Please enable JavaScript or click the link below:</p>
-        <a href="#" id="fallbackLink">Open App</a>
-        <script>
-            document.getElementById('fallbackLink').href = 'yourapp://reset-password?token=' + 
-                new URLSearchParams(window.location.search).get('token');
-        </script>
-    </noscript>
+    <p>Testing redirect...</p>
+    <script>
+        const token = new URLSearchParams(window.location.search).get('token');
+        console.log('Token found:', token);
+        alert('Token: ' + token + '\nRedirecting to: yourapp://reset-password?token=' + token);
+        window.location.href = 'yourapp://reset-password?token=' + token;
+    </script>
 </body>
 </html>
