@@ -8,8 +8,8 @@
     <script>
         const token = new URLSearchParams(window.location.search).get('token');
         console.log('Token found:', token);
-        alert('Token: ' + token + '\nRedirecting to: yourapp://reset-password?token=' + token);
         window.location.href = 'yourapp://reset-password?token=' + token;
     </script>
 </body>
 </html>
+
