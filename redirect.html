@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        if (token) {
+            window.location.href = `yourapp://reset-password?token=${token}`;
+        } else {
+            document.write('Invalid reset link');
+        }
+    </script>
+</head>
+<body>
+    <p>Redirecting to app...</p>
+    <p>If you're not redirected, <a href="#" id="fallback">click here</a></p>
+    <script>
+        const token = new URLSearchParams(window.location.search).get('token');
+        document.getElementById('fallback').href = `yourapp://reset-password?token=${token}`;
+    </script>
+</body>
+</html>
